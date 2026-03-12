@@ -1,4 +1,3 @@
-import { Button } from "@/components/Button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
@@ -16,25 +15,27 @@ export const Navbar = ({ onContactClick }) => {
     <header
       className="fixed top-0 left-0 right-0 py-5 z-50"
       style={{
-        background: "linear-gradient(to bottom, #0d1320 40%, transparent 100%)",
+        background: "linear-gradient(to bottom, #F5EFE0 40%, transparent 100%)",
       }}
     >
       <nav className="container mx-auto px-6 flex items-center justify-between">
         <a
           href="#"
-          className="text-xl tracking-tight hover:text-primary"
+          className="font-serif text-xl tracking-tight text-ink hover:text-primary transition-colors"
+          data-hover
         >
-          Vishal Singh<span className="text-primary"></span>
+          Vishal Singh<span className="text-primary">.</span>
         </a>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
-          <div className="glass rounded-full px-2 py-1 flex items-center gap-1">
+          <div className="border border-border px-2 py-1 flex items-center gap-1 bg-background/60 backdrop-blur-md">
             {navLinks.map((link, index) => (
               <a
                 href={link.href}
                 key={index}
-                className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground rounded-full hover:bg-surface"
+                className="px-4 py-2 font-mono text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors"
+                data-hover
               >
                 {link.label}
               </a>
@@ -46,16 +47,8 @@ export const Navbar = ({ onContactClick }) => {
         <div className="hidden md:block">
           <button
             onClick={onContactClick}
-            className="px-4 py-2 text-sm font-mono font-semibold rounded-md cursor-pointer transition-all duration-300"
-            style={{
-              background: "rgba(0,255,65,0.08)",
-              border: "1px solid #00ff4140",
-              color: "#00ff41",
-              textShadow: "0 0 8px rgba(0,255,65,0.3)",
-              letterSpacing: "0.05em",
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0,255,65,0.15)'; e.currentTarget.style.boxShadow = '0 0 16px rgba(0,255,65,0.2)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(0,255,65,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}
+            className="ghost-btn ghost-btn-sm"
+            data-hover
           >
             ⟩ Contact Details
           </button>
@@ -63,8 +56,9 @@ export const Navbar = ({ onContactClick }) => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 text-foreground cursor-pointer"
+          className="md:hidden p-2 text-ink"
           onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          data-hover
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -72,14 +66,15 @@ export const Navbar = ({ onContactClick }) => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden glass-strong animate-fade-in">
+        <div className="md:hidden bg-background/95 backdrop-blur-lg border-t border-border animate-fade-in">
           <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
             {navLinks.map((link, index) => (
               <a
                 href={link.href}
                 key={index}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-lg text-muted-foreground hover:text-foreground py-2"
+                className="font-mono text-sm tracking-wider uppercase text-muted-foreground hover:text-primary py-2"
+                data-hover
               >
                 {link.label}
               </a>
@@ -87,14 +82,8 @@ export const Navbar = ({ onContactClick }) => {
 
             <button
               onClick={() => { setIsMobileMenuOpen(false); onContactClick(); }}
-              className="w-full px-4 py-3 text-sm font-mono font-semibold rounded-md cursor-pointer transition-all duration-300"
-              style={{
-                background: "rgba(0,255,65,0.08)",
-                border: "1px solid #00ff4140",
-                color: "#00ff41",
-                textShadow: "0 0 8px rgba(0,255,65,0.3)",
-                letterSpacing: "0.05em",
-              }}
+              className="ghost-btn w-full justify-center"
+              data-hover
             >
               ⟩ Contact Details
             </button>

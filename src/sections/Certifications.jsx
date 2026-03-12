@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, Award } from "lucide-react";
 import { useState } from "react";
+import { StaggerReveal } from "@/components/StaggerReveal";
 
 const certifications = [
   {
@@ -9,9 +10,9 @@ const certifications = [
     description:
       "Gained in-depth understanding of how data packets are routed across networks, switching algorithms, and network performance optimization — directly applicable to building reliable, networked web applications.",
     badge: "🌐",
-    color: "#0056D2",
+    color: "#C8860A",
     courseLink: "https://www.coursera.org/learn/packet-switching-networks-algorithms",
-    verifyLink: "https://www.coursera.org/account/accomplishments", // Replace with your certificate link
+    verifyLink: "https://www.coursera.org/account/accomplishments",
   },
   {
     title: "Crash Course in Python",
@@ -20,9 +21,9 @@ const certifications = [
     description:
       "Completed a comprehensive Python programming course covering core syntax, data structures, OOPs, and scripting — strengthening backend and automation skills used in AI-powered projects.",
     badge: "🐍",
-    color: "#3776AB",
+    color: "#8B3A1C",
     courseLink: "https://www.coursera.org/learn/python-crash-course",
-    verifyLink: "https://www.coursera.org/account/accomplishments", // Replace with your certificate link
+    verifyLink: "https://www.coursera.org/account/accomplishments",
   },
   {
     title: "Cloud Computing",
@@ -31,9 +32,9 @@ const certifications = [
     description:
       "Earned NPTEL certification in Cloud Computing covering cloud architecture, virtualization, deployment models, and cloud security — supporting scalable application deployment on platforms like Firebase and Vercel.",
     badge: "☁️",
-    color: "#FF9900",
+    color: "#C8860A",
     courseLink: "https://nptel.ac.in/courses/106104079",
-    verifyLink: "https://nptel.ac.in/noc/E_Certificate/linkedin/noc", // Replace with your certificate link
+    verifyLink: "https://nptel.ac.in/noc/E_Certificate/linkedin/noc",
   },
   {
     title: "C++ Programming — OOPs & Data Structures",
@@ -42,18 +43,11 @@ const certifications = [
     description:
       "Completed intensive C++ training focused on Object-Oriented Programming and Data Structures. Applied concepts by building a hospital ER triage system using Binary Heap with real-world features.",
     badge: "⚙️",
-    color: "#00599C",
+    color: "#8B3A1C",
     courseLink: "#",
-    verifyLink: "#", // Add your certificate link here
+    verifyLink: "#",
   },
 ];
-
-const handleVerifyClick = (verifyLink) => {
-  if (verifyLink && verifyLink !== "#") {
-    window.open(verifyLink, "_blank");
-  }
-};
-
 
 export const Certifications = () => {
   const [activeIdx, setActiveIdx] = useState(0);
@@ -65,25 +59,24 @@ export const Certifications = () => {
 
   return (
     <section id="certifications" className="py-32 relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      {/* Watermark */}
+      <span className="watermark top-4 right-4 md:right-16">05</span>
 
       <div className="container mx-auto px-6 relative z-10">
 
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
-            Certifications
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
+        <StaggerReveal className="text-center max-w-3xl mx-auto mb-16">
+          <span className="section-label">Certifications</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 text-ink">
             Credentials that{" "}
-            <span className="font-serif italic font-normal text-white">
+            <span className="font-serif italic font-normal text-rust">
               back the work.
             </span>
           </h2>
-          <p className="text-muted-foreground animate-fade-in animation-delay-200">
+          <p className="text-muted-foreground">
             Every certificate represents a skill I actively use — not just a badge to collect.
           </p>
-        </div>
+        </StaggerReveal>
 
         {/* Certification Carousel */}
         <div className="max-w-4xl mx-auto">
@@ -92,13 +85,13 @@ export const Certifications = () => {
             {/* Card */}
             <div
               key={activeIdx}
-              className="glass p-8 rounded-3xl md:p-12 glow-border animate-fade-in animation-delay-200"
+              className="bg-card p-8 md:p-12 border border-border relative animate-fade-in"
               style={{ borderTop: `3px solid ${cert.color}` }}
             >
               {/* Badge */}
               <div
-                className="absolute -top-5 left-8 w-12 h-12 rounded-full flex items-center justify-center text-2xl"
-                style={{ background: cert.color }}
+                className="absolute -top-5 left-8 w-12 h-12 flex items-center justify-center text-2xl"
+                style={{ background: cert.color, color: "#F5EFE0" }}
               >
                 {cert.badge}
               </div>
@@ -106,18 +99,18 @@ export const Certifications = () => {
               {/* Issuer + Date */}
               <div className="flex items-center justify-between mb-6 pt-4">
                 <span
-                  className="text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full"
-                  style={{ background: `${cert.color}20`, color: cert.color }}
+                  className="font-mono text-xs font-semibold tracking-widest uppercase px-3 py-1"
+                  style={{ background: `${cert.color}15`, color: cert.color, border: `1px solid ${cert.color}30` }}
                 >
                   {cert.issuer}
                 </span>
-                <span className="text-sm text-muted-foreground flex items-center gap-1">
+                <span className="text-sm text-muted-foreground flex items-center gap-1 font-mono">
                   <Award className="w-4 h-4" /> {cert.date}
                 </span>
               </div>
 
               {/* Title */}
-              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">
+              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-ink font-serif">
                 {cert.title}
               </h3>
 
@@ -132,8 +125,9 @@ export const Certifications = () => {
                   href={cert.verifyLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all"
-                  style={{ background: `${cert.color}20`, color: cert.color, border: `1px solid ${cert.color}40` }}
+                  className="ghost-btn ghost-btn-sm"
+                  style={{ borderColor: cert.color, color: cert.color }}
+                  data-hover
                 >
                   <Award className="w-3 h-3" /> Verify Certificate
                 </a>
@@ -141,8 +135,8 @@ export const Certifications = () => {
                   href={cert.courseLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold text-muted-foreground transition-all hover:text-white"
-                  style={{ border: "1px solid rgba(255,255,255,0.1)" }}
+                  className="ghost-btn ghost-btn-sm"
+                  data-hover
                 >
                   View Course →
                 </a>
@@ -152,8 +146,9 @@ export const Certifications = () => {
             {/* Navigation */}
             <div className="flex items-center justify-center gap-4 mt-8">
               <button
-                className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all"
+                className="p-3 border border-border hover:border-primary hover:text-primary transition-all"
                 onClick={previous}
+                data-hover
               >
                 <ChevronLeft />
               </button>
@@ -163,25 +158,27 @@ export const Certifications = () => {
                   <button
                     key={idx}
                     onClick={() => setActiveIdx(idx)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
+                    className={`h-2 transition-all duration-300 ${
                       idx === activeIdx
                         ? "w-8 bg-primary"
-                        : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                        : "w-2 bg-border hover:bg-muted-foreground/50"
                     }`}
+                    data-hover
                   />
                 ))}
               </div>
 
               <button
                 onClick={next}
-                className="p-3 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all"
+                className="p-3 border border-border hover:border-primary hover:text-primary transition-all"
+                data-hover
               >
                 <ChevronRight />
               </button>
             </div>
 
             {/* Counter */}
-            <p className="text-center text-sm text-muted-foreground mt-4">
+            <p className="text-center text-sm text-muted-foreground mt-4 font-mono">
               {activeIdx + 1} / {certifications.length}
             </p>
           </div>

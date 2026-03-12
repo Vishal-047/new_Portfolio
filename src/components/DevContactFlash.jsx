@@ -1,116 +1,26 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import { Mail, Phone, Github, Linkedin, MapPin, Briefcase, X, User } from "lucide-react";
 
 const contactData = [
-  { key: "IDENTITY", value: "Vishal Singh", color: "#00ff41" },
-  { key: "COMMS", value: "Vishalrw007@gmail.com", color: "#00ff41", href: "mailto:Vishalrw007@gmail.com" },
-  { key: "SIGNAL", value: "+91-7355752539", color: "#00ff41", href: "tel:+917355752539" },
-  { key: "SOURCE", value: "github.com/Vishal-047", color: "#00ff41", href: "https://github.com/Vishal-047" },
-  { key: "NETWORK", value: "linkedin.com/in/vishal0407", color: "#00ff41", href: "https://www.linkedin.com/in/vishal0407" },
-  { key: "COORDS", value: "Punjab, India", color: "#00ff41" },
-  { key: "STATUS", value: "AVAILABLE FOR INTERNSHIP", color: "#00ff41" },
+  { key: "Name", value: "Vishal Singh", icon: User },
+  { key: "Email", value: "Vishalrw007@gmail.com", href: "mailto:Vishalrw007@gmail.com", icon: Mail },
+  { key: "Phone", value: "+91-7355752539", href: "tel:+917355752539", icon: Phone },
+  { key: "GitHub", value: "github.com/Vishal-047", href: "https://github.com/Vishal-047", icon: Github },
+  { key: "LinkedIn", value: "linkedin.com/in/vishal0407", href: "https://www.linkedin.com/in/vishal0407", icon: Linkedin },
+  { key: "Location", value: "Punjab, India", icon: MapPin },
+  { key: "Status", value: "Available for Internship", icon: Briefcase, highlight: true },
 ];
-
-const hackingSteps = [
-  "Initializing secure connection...",
-  "Bypassing firewall ██████████ OK",
-  "Decrypting contact database...",
-  "Access granted ✓",
-];
-
-// Matrix rain character set
-const matrixChars = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789";
-
-function MatrixRain({ width, height }) {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    canvas.width = width;
-    canvas.height = height;
-
-    const fontSize = 14;
-    const columns = Math.floor(width / fontSize);
-    const drops = Array(columns).fill(1);
-
-    const draw = () => {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-      ctx.fillRect(0, 0, width, height);
-      ctx.fillStyle = "#00ff4120";
-      ctx.font = `${fontSize}px monospace`;
-
-      for (let i = 0; i < drops.length; i++) {
-        const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-    };
-
-    const interval = setInterval(draw, 45);
-    return () => clearInterval(interval);
-  }, [width, height]);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: "absolute", inset: 0,
-        opacity: 0.4, pointerEvents: "none",
-      }}
-    />
-  );
-}
-
-function HackingSequence({ onComplete }) {
-  const [currentStep, setCurrentStep] = useState(0);
-
-  useEffect(() => {
-    if (currentStep < hackingSteps.length) {
-      const timer = setTimeout(() => setCurrentStep(s => s + 1), 700);
-      return () => clearTimeout(timer);
-    } else {
-      const timer = setTimeout(onComplete, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [currentStep, onComplete]);
-
-  return (
-    <div style={{ fontFamily: "monospace", fontSize: 13 }}>
-      {hackingSteps.slice(0, currentStep).map((step, i) => (
-        <div
-          key={i}
-          style={{
-            color: i === hackingSteps.length - 1 ? "#00ff41" : "#00ff4180",
-            marginBottom: 6,
-            animation: "glitchIn 0.3s ease forwards",
-          }}
-        >
-          <span style={{ color: "#00ff4150" }}>[{String(i).padStart(2, "0")}] </span>
-          {step}
-        </div>
-      ))}
-      {currentStep < hackingSteps.length && (
-        <span className="blink" style={{ color: "#00ff41" }}>█</span>
-      )}
-    </div>
-  );
-}
 
 function DataLine({ item, index, show }) {
   const [revealed, setRevealed] = useState(false);
   const [scrambled, setScrambled] = useState(true);
   const [displayValue, setDisplayValue] = useState("");
-  const scrambleChars = "!@#$%^&*()_+=[]{}|;:',.<>?/~`";
+  const scrambleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   useEffect(() => {
     if (!show) return;
     const revealTimer = setTimeout(() => {
       setRevealed(true);
-      // Scramble effect
       let iteration = 0;
       const interval = setInterval(() => {
         setDisplayValue(
@@ -124,82 +34,99 @@ function DataLine({ item, index, show }) {
           clearInterval(interval);
           setScrambled(false);
         }
-      }, 25);
+      }, 30);
       return () => clearInterval(interval);
-    }, index * 250);
+    }, index * 200);
     return () => clearTimeout(revealTimer);
   }, [show, index, item.value]);
 
-  if (!revealed) return <div style={{ height: 38 }} />;
+  if (!revealed) return <div style={{ height: 52 }} />;
 
-  return (
-    <div style={{
-      display: "flex",
-      alignItems: "center",
-      gap: 12,
-      padding: "8px 0",
-      borderBottom: "1px solid #00ff4110",
-      fontFamily: "monospace",
-      animation: "slideRight 0.3s ease forwards",
-    }}>
-      <span style={{
-        color: "#00ff4160",
-        fontSize: 10,
-        width: 70,
+  const Icon = item.icon;
+  const content = (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 14,
+        padding: "12px 16px",
+        borderBottom: "1px solid #D4C9A8",
+        animation: "revealSlide 0.4s ease forwards",
+        transition: "background 0.25s ease",
+      }}
+      className="contact-line"
+    >
+      <div style={{
+        width: 36, height: 36,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        border: "1px solid #D4C9A8",
+        color: item.highlight ? "#8B3A1C" : "#C8860A",
         flexShrink: 0,
-        letterSpacing: "0.1em",
       }}>
-        {item.key}
-      </span>
-      <span style={{ color: "#00ff4130", marginRight: 4 }}>→</span>
-      {item.href ? (
-        <a
-          href={item.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            color: item.color,
-            textDecoration: "none",
-            fontSize: 14,
-            textShadow: scrambled ? "none" : `0 0 8px ${item.color}60`,
-            transition: "text-shadow 0.3s",
-          }}
-          onMouseEnter={e => e.target.style.textShadow = `0 0 16px ${item.color}`}
-          onMouseLeave={e => e.target.style.textShadow = `0 0 8px ${item.color}60`}
-        >
-          {displayValue || item.value}
-        </a>
-      ) : (
-        <span style={{
-          color: item.color,
+        <Icon size={16} />
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{
+          fontFamily: "'DM Mono', monospace",
+          fontSize: 10,
+          letterSpacing: "0.12em",
+          color: "#6B5B3E",
+          textTransform: "uppercase",
+          marginBottom: 2,
+        }}>
+          {item.key}
+        </div>
+        <div style={{
+          fontFamily: "'Instrument Sans', sans-serif",
           fontSize: 14,
-          textShadow: scrambled ? "none" : `0 0 8px ${item.color}60`,
+          color: item.highlight ? "#8B3A1C" : "#1A1108",
+          fontWeight: item.highlight ? 600 : 400,
         }}>
           {displayValue || item.value}
-        </span>
+        </div>
+      </div>
+      {item.href && (
+        <span style={{ color: "#C8860A", fontSize: 12 }}>→</span>
       )}
     </div>
   );
+
+  if (item.href) {
+    return (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: "none", display: "block" }}
+        data-hover
+      >
+        {content}
+      </a>
+    );
+  }
+  return content;
 }
 
 export const DevContactFlash = ({ open, onClose }) => {
   const [visible, setVisible] = useState(false);
-  const [hackingDone, setHackingDone] = useState(false);
+  const [showData, setShowData] = useState(false);
 
   useEffect(() => {
     if (open) {
       setVisible(true);
-      setHackingDone(false);
+      setShowData(false);
       document.body.style.overflow = "hidden";
+      // Small delay before showing data for entrance animation
+      const t = setTimeout(() => setShowData(true), 400);
+      return () => clearTimeout(t);
     } else {
       document.body.style.overflow = "";
-      setHackingDone(false);
+      setShowData(false);
       const t = setTimeout(() => setVisible(false), 400);
       return () => clearTimeout(t);
     }
   }, [open]);
 
-  // Escape key
   useEffect(() => {
     const handleKey = (e) => { if (e.key === "Escape") onClose(); };
     if (open) window.addEventListener("keydown", handleKey);
@@ -218,121 +145,106 @@ export const DevContactFlash = ({ open, onClose }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: open ? "rgba(0,0,0,0.95)" : "rgba(0,0,0,0)",
+        background: open ? "rgba(26,17,8,0.6)" : "rgba(26,17,8,0)",
+        backdropFilter: open ? "blur(8px)" : "blur(0)",
         transition: "all 0.4s ease",
         opacity: open ? 1 : 0,
       }}
     >
-      {/* Matrix rain background */}
-      {open && <MatrixRain width={window.innerWidth} height={window.innerHeight} />}
-
-      {/* Scan lines */}
-      <div style={{
-        position: "absolute", inset: 0,
-        background: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.03) 2px, rgba(0,255,65,0.03) 4px)",
-        pointerEvents: "none",
-      }} />
-
+      {/* Modal card */}
       <div
         onClick={e => e.stopPropagation()}
         style={{
-          background: "rgba(0,10,0,0.92)",
-          border: "1px solid #00ff4130",
-          borderRadius: 4,
-          width: "min(92vw, 580px)",
+          background: "#F5EFE0",
+          border: "1px solid #D4C9A8",
+          width: "min(92vw, 480px)",
           overflow: "hidden",
-          transform: open ? "scale(1)" : "scale(0.95)",
-          transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1)",
-          boxShadow: "0 0 60px rgba(0,255,65,0.1), inset 0 0 60px rgba(0,255,65,0.02)",
+          transform: open ? "scale(1) translateY(0)" : "scale(0.95) translateY(20px)",
+          transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease",
+          boxShadow: "0 25px 80px rgba(26,17,8,0.25), 0 0 0 1px rgba(200,134,10,0.1)",
           position: "relative",
         }}
       >
-        {/* Top bar */}
+        {/* Header */}
         <div style={{
-          padding: "8px 16px",
+          padding: "20px 24px 16px",
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start",
           justifyContent: "space-between",
-          borderBottom: "1px solid #00ff4120",
-          background: "rgba(0,255,65,0.03)",
+          borderBottom: "1px solid #D4C9A8",
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ color: "#00ff41", fontSize: 11, fontFamily: "monospace", letterSpacing: 2 }}>
-              ⟩ SECURE_TERMINAL
-            </span>
-            <span className="blink" style={{ color: "#00ff41", fontSize: 12 }}>●</span>
+          <div>
+            <h3 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 22,
+              fontWeight: 700,
+              color: "#1A1108",
+              margin: 0,
+              lineHeight: 1.3,
+            }}>
+              Contact <span style={{ fontStyle: "italic", color: "#8B3A1C" }}>Details</span>
+            </h3>
+            <p style={{
+              fontFamily: "'DM Mono', monospace",
+              fontSize: 10,
+              letterSpacing: "0.15em",
+              color: "#6B5B3E",
+              marginTop: 4,
+              textTransform: "uppercase",
+            }}>
+              Let's connect & build together
+            </p>
           </div>
           <button
             onClick={onClose}
+            data-hover
             style={{
-              background: "transparent", border: "1px solid #00ff4130",
-              color: "#00ff4160", cursor: "pointer", padding: "2px 8px",
-              fontFamily: "monospace", fontSize: 11, borderRadius: 2,
-              transition: "all 0.2s",
+              background: "transparent",
+              border: "1px solid #D4C9A8",
+              width: 32, height: 32,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              color: "#6B5B3E",
+              transition: "all 0.25s",
             }}
-            onMouseEnter={e => { e.currentTarget.style.color = "#00ff41"; e.currentTarget.style.borderColor = "#00ff41"; }}
-            onMouseLeave={e => { e.currentTarget.style.color = "#00ff4160"; e.currentTarget.style.borderColor = "#00ff4130"; }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = "#C8860A"; e.currentTarget.style.color = "#C8860A"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = "#D4C9A8"; e.currentTarget.style.color = "#6B5B3E"; }}
           >
-            [ESC]
+            <X size={16} />
           </button>
         </div>
 
-        {/* Body */}
-        <div style={{ padding: "20px 24px", minHeight: 340 }}>
-          {/* Hacking sequence */}
-          {open && !hackingDone && (
-            <HackingSequence onComplete={() => setHackingDone(true)} />
-          )}
+        {/* Contact data */}
+        <div style={{ padding: 0 }}>
+          {contactData.map((item, i) => (
+            <DataLine key={i} item={item} index={i} show={showData} />
+          ))}
+        </div>
 
-          {/* Contact data */}
-          {hackingDone && (
-            <div>
-              <div style={{
-                color: "#00ff4140", fontFamily: "monospace",
-                fontSize: 10, letterSpacing: "0.2em",
-                marginBottom: 16, paddingBottom: 8,
-                borderBottom: "1px solid #00ff4115",
-              }}>
-                ─── DECRYPTED CONTACT DATA ─────────────────
-              </div>
-
-              {contactData.map((item, i) => (
-                <DataLine key={i} item={item} index={i} show={hackingDone} />
-              ))}
-
-              <div style={{
-                marginTop: 20, padding: "10px 14px",
-                background: "#00ff4108",
-                border: "1px solid #00ff4115",
-                borderRadius: 3,
-                fontFamily: "monospace",
-                fontSize: 11,
-                color: "#00ff4150",
-                textAlign: "center",
-              }}>
-                ⚠ CONNECTION ENCRYPTED · CLICK LINKS TO CONNECT · ESC TO DISCONNECT
-              </div>
-            </div>
-          )}
+        {/* Footer */}
+        <div style={{
+          padding: "12px 24px",
+          borderTop: "1px solid #D4C9A8",
+          textAlign: "center",
+        }}>
+          <span style={{
+            fontFamily: "'DM Mono', monospace",
+            fontSize: 10,
+            letterSpacing: "0.12em",
+            color: "#6B5B3E80",
+            textTransform: "uppercase",
+          }}>
+            Click links to connect · ESC to close
+          </span>
         </div>
       </div>
 
       <style>{`
-        @keyframes glitchIn {
-          0% { opacity: 0; transform: translateX(-20px) skewX(-5deg); }
-          50% { opacity: 0.8; transform: translateX(3px) skewX(1deg); }
-          100% { opacity: 1; transform: translateX(0) skewX(0); }
-        }
-        @keyframes slideRight {
-          from { opacity: 0; transform: translateX(-15px); }
+        @keyframes revealSlide {
+          from { opacity: 0; transform: translateX(-12px); }
           to { opacity: 1; transform: translateX(0); }
         }
-        .blink {
-          animation: blinkAnim 1s ease infinite;
-        }
-        @keyframes blinkAnim {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
+        .contact-line:hover {
+          background: rgba(200,134,10,0.06) !important;
         }
       `}</style>
     </div>

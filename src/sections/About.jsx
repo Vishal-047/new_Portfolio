@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { StaggerReveal } from "@/components/StaggerReveal";
 
 const skills = [
   { label: "Full Stack Dev", value: 82, icon: "⚡" },
@@ -19,41 +20,38 @@ function CircularSkill({ skill, index, animate }) {
     <div
       className="flex flex-col items-center gap-2"
       style={{
-        animation: animate ? `fadeUp 0.6s ease forwards` : "none",
+        animation: animate ? "fadeUp 0.6s ease forwards" : "none",
         animationDelay: `${index * 0.1}s`,
         opacity: 0,
       }}
     >
       <div className="relative w-24 h-24 flex items-center justify-center">
         <svg className="absolute top-0 left-0 w-full h-full -rotate-90" viewBox="0 0 88 88">
-          <circle cx="44" cy="44" r={radius} fill="none" stroke="#1a2a1a" strokeWidth="7" />
+          <circle cx="44" cy="44" r={radius} fill="none" stroke="#D4C9A8" strokeWidth="7" />
           <circle
             cx="44" cy="44" r={radius} fill="none"
-            stroke="#00ff6a" strokeWidth="7" strokeOpacity="0.15"
+            stroke="#C8860A" strokeWidth="7" strokeOpacity="0.2"
             strokeDasharray={circumference} strokeDashoffset={dash}
             style={{ transition: "stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1)" }}
           />
           <circle
             cx="44" cy="44" r={radius} fill="none"
-            stroke="#00e05a" strokeWidth="4" strokeLinecap="round"
+            stroke="#C8860A" strokeWidth="4" strokeLinecap="round"
             strokeDasharray={circumference} strokeDashoffset={dash}
             style={{
               transition: "stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1)",
-              filter: "drop-shadow(0 0 6px #00e05a)",
+              filter: "drop-shadow(0 0 6px rgba(200,134,10,0.4))",
             }}
           />
         </svg>
         <div className="flex flex-col items-center z-10">
           <span style={{ fontSize: "1.3rem" }}>{skill.icon}</span>
-          <span style={{ color: "#00e05a", fontWeight: 700, fontSize: "0.95rem", fontFamily: "monospace" }}>
+          <span className="font-mono font-bold text-primary" style={{ fontSize: "0.95rem" }}>
             {skill.value}%
           </span>
         </div>
       </div>
-      <span style={{
-        color: "#c8ffd4", fontSize: "0.75rem", fontWeight: 600,
-        letterSpacing: "0.05em", textAlign: "center", fontFamily: "'Courier New', monospace",
-      }}>
+      <span className="font-mono text-xs text-muted-foreground font-semibold tracking-wider text-center">
         {skill.label}
       </span>
     </div>
@@ -75,25 +73,26 @@ export const About = () => {
 
   return (
     <section id="about" className="py-32 relative overflow-hidden">
+      {/* Watermark */}
+      <span className="watermark -top-8 left-4 md:left-12">02</span>
+
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Left Column */}
-          <div className="space-y-8">
-            <div className="animate-fade-in">
-              <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase">
-                About Me
-              </span>
+          <StaggerReveal className="space-y-8">
+            <div>
+              <span className="section-label">About Me</span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold leading-tight animate-fade-in animation-delay-100 text-secondary-foreground">
+            <h2 className="text-4xl md:text-5xl font-bold leading-tight text-ink">
               Building secure, scalable web experiences —
-              <span className="font-serif italic font-normal text-white">
+              <span className="font-serif italic font-normal text-rust">
                 {" "}one component at a time.
               </span>
             </h2>
 
-            <div className="space-y-4 text-muted-foreground animate-fade-in animation-delay-200">
+            <div className="space-y-4 text-muted-foreground">
               <p>
                 I'm Vishal Singh, a B.Tech CSE student passionate about full-stack
                 development and cybersecurity. I build user-centered web applications
@@ -112,31 +111,30 @@ export const About = () => {
               </p>
             </div>
 
-            <div className="glass rounded-2xl p-6 glow-border animate-fade-in animation-delay-300">
-              <p className="text-lg font-medium italic text-foreground">
+            <div className="border border-primary/30 bg-card p-6">
+              <p className="text-lg font-serif italic text-ink">
                 "My goal is simple — write code that works today, scales tomorrow,
                 and never breaks at 3AM"
               </p>
             </div>
-          </div>
+          </StaggerReveal>
 
           {/* Right Column - Skill Graph */}
           <div
             ref={ref}
             style={{
-              background: "linear-gradient(135deg, #040d04 0%, #0a1a0a 50%, #040d04 100%)",
-              border: "1px solid #1a3a1a",
-              borderRadius: "1.5rem",
+              background: "linear-gradient(135deg, #EDE6D3 0%, #F5EFE0 50%, #EDE6D3 100%)",
+              border: "1px solid #D4C9A8",
+              borderRadius: 0,
               padding: "2.5rem 2rem",
-              boxShadow: "0 0 60px rgba(0,200,80,0.07), inset 0 1px 0 rgba(0,255,100,0.05)",
               position: "relative",
               overflow: "hidden",
             }}
           >
             {/* Background grid */}
             <div style={{
-              position: "absolute", inset: 0, opacity: 0.04,
-              backgroundImage: "linear-gradient(#00ff6a 1px, transparent 1px), linear-gradient(90deg, #00ff6a 1px, transparent 1px)",
+              position: "absolute", inset: 0, opacity: 0.06,
+              backgroundImage: "linear-gradient(#C8860A 1px, transparent 1px), linear-gradient(90deg, #C8860A 1px, transparent 1px)",
               backgroundSize: "32px 32px",
               pointerEvents: "none",
             }} />
@@ -145,20 +143,16 @@ export const About = () => {
             <div className="text-center mb-8" style={{ position: "relative" }}>
               <div style={{
                 display: "inline-block",
-                background: "rgba(0,224,90,0.1)",
-                border: "1px solid rgba(0,224,90,0.3)",
-                borderRadius: "999px",
+                background: "rgba(200,134,10,0.1)",
+                border: "1px solid rgba(200,134,10,0.3)",
                 padding: "4px 16px",
                 marginBottom: "0.75rem",
               }}>
-                <span style={{ color: "#00e05a", fontSize: "0.7rem", fontFamily: "monospace", letterSpacing: "0.15em" }}>
+                <span className="font-mono text-primary" style={{ fontSize: "0.7rem", letterSpacing: "0.15em" }}>
                   ● SKILL MATRIX
                 </span>
               </div>
-              <h3 style={{
-                color: "#e8ffe8", fontFamily: "'Courier New', monospace",
-                fontSize: "1.2rem", fontWeight: 700, margin: 0, letterSpacing: "0.05em",
-              }}>
+              <h3 className="font-mono text-ink font-bold" style={{ fontSize: "1.1rem", letterSpacing: "0.05em" }}>
                 Technical Proficiency based on my current Work/Project
               </h3>
             </div>
@@ -175,14 +169,14 @@ export const About = () => {
 
             {/* Footer Stats */}
             <div style={{
-              marginTop: "2rem", borderTop: "1px solid #1a3a1a",
+              marginTop: "2rem", borderTop: "1px solid #D4C9A8",
               paddingTop: "1.5rem", display: "flex",
               justifyContent: "center", gap: "2.5rem",
             }}>
               {[["200+", "LeetCode"], ["15+", "APIs Built"], ["10+", "Tech Stacks"]].map(([num, label]) => (
                 <div key={label} className="text-center">
-                  <div style={{ color: "#00e05a", fontWeight: 700, fontSize: "1.2rem", fontFamily: "monospace" }}>{num}</div>
-                  <div style={{ color: "#5a8a5a", fontSize: "0.7rem", fontFamily: "monospace", letterSpacing: "0.1em" }}>{label}</div>
+                  <div className="font-mono font-bold text-primary" style={{ fontSize: "1.2rem" }}>{num}</div>
+                  <div className="font-mono text-muted-foreground" style={{ fontSize: "0.7rem", letterSpacing: "0.1em" }}>{label}</div>
                 </div>
               ))}
             </div>
