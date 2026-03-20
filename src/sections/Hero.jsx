@@ -5,20 +5,9 @@ import {
   Linkedin,
   Mail,
   Download,
-  Code2,
-  Trophy,
 } from "lucide-react";
-
-const handleDownloadCV = () => {
-  const link = document.createElement('a');
-  link.href = '/vishal-singh-cv.pdf';
-  link.download = 'Vishal-Singh-CV.pdf';
-  link.click();
-};
-
-
-
 export const Hero = () => {
+
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Number Watermark */}
@@ -65,10 +54,10 @@ export const Hero = () => {
               >
                 Contact Me <ArrowRight className="w-4 h-4" />
               </GhostButton>
-              <GhostButton size="lg" onClick={handleDownloadCV}>
-                <Download className="w-4 h-4" />
-                Download CV
-              </GhostButton>
+              <GhostButton size="lg" href="https://drive.google.com/file/d/16IHgbOTx5q7YeKKUd-PCyOJzrXt0ui_0/view?usp=sharing" target="_blank">
+                  <Download className="w-4 h-4" />
+                  View CV
+                  </GhostButton>
             </div>
 
             {/* Social Links */}
@@ -77,8 +66,6 @@ export const Hero = () => {
               {[
                 { icon: Github, href: "https://github.com/Vishal-047" },
                 { icon: Linkedin, href: "https://www.linkedin.com/in/vishal0407" },
-                { icon: Code2, href: "https://leetcode.com/u/Vishal407/" },
-                { icon: Trophy, href: "https://www.geeksforgeeks.org/profile/vishal407" },
                 { icon: Mail, href: "mailto:vishalrw007@gmail.com" },
               ].map((social, idx) => (
                 <a

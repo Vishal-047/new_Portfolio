@@ -12,7 +12,7 @@ export const GhostButton = ({
   if (href) {
     return (
       <a
-        href={href.startsWith("http") || href.startsWith("mailto") || href.startsWith("#") ? href : `https://${href}`}
+        href={href.startsWith("http") || href.startsWith("mailto") || href.startsWith("#") || href.startsWith("/") ? href : `https://${href}`}
         target={href.startsWith("#") || href.startsWith("mailto") ? undefined : "_blank"}
         rel={href.startsWith("#") || href.startsWith("mailto") ? undefined : "noopener noreferrer"}
         className={classes}

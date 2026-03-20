@@ -132,6 +132,45 @@ export const Skills = () => {
                         ))}
                     </div>
 
+                    {/* Coding Profiles */}
+                    <div className="mt-14 w-full relative z-10">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="h-px flex-1 bg-border" />
+                            <span className="font-mono text-xs text-muted-foreground tracking-widest uppercase">Coding Profiles</span>
+                            <div className="h-px flex-1 bg-border" />
+                        </div>
+                        <div className="flex flex-wrap justify-center gap-4">
+                            {/* LeetCode */}
+                            <a
+                                href="https://leetcode.com/u/Vishal407/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-3 px-5 py-3 bg-card border border-border rounded-xl hover:border-primary/50 hover:-translate-y-1 hover:shadow-[4px_4px_0px_rgba(200,134,10,0.15)] transition-all duration-300 group"
+                                data-hover
+                            >
+                                <img src="/leetcode.png" alt="LeetCode" className="w-6 h-6 object-contain opacity-80 group-hover:opacity-100 transition-opacity dark:invert" />
+                                <div className="flex flex-col leading-tight">
+                                    <span className="font-bold text-ink text-sm font-sans">LeetCode</span>
+                                    <span className="text-[0.6rem] text-muted-foreground font-mono tracking-wider uppercase">@Vishal407</span>
+                                </div>
+                            </a>
+                            {/* GeeksforGeeks */}
+                            <a
+                                href="https://www.geeksforgeeks.org/profile/vishal407"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-3 px-5 py-3 bg-card border border-border rounded-xl hover:border-primary/50 hover:-translate-y-1 hover:shadow-[4px_4px_0px_rgba(200,134,10,0.15)] transition-all duration-300 group"
+                                data-hover
+                            >
+                                <img src="/gfg.svg" alt="GeeksforGeeks" className="w-6 h-6 object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
+                                <div className="flex flex-col leading-tight">
+                                    <span className="font-bold text-ink text-sm font-sans">GeeksforGeeks</span>
+                                    <span className="text-[0.6rem] text-muted-foreground font-mono tracking-wider uppercase">@vishal407</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
                 </StaggerReveal>
             </div>
         </section>
