@@ -118,17 +118,17 @@ export const Projects = () => {
               {/* Content */}
               <div className="flex flex-col flex-grow p-6">
                 <div className="flex flex-col h-full relative">
-                  {/* Inline Action Links */}
-                  <div className="flex items-center gap-6 mb-4">
+                  {/* Action Buttons */}
+                  <div className="flex items-center gap-3 mb-6">
                     {project.link && (
                       <a
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs font-mono font-bold tracking-widest uppercase text-ink hover:text-primary transition-colors"
+                        className="flex-1 flex items-center justify-center bg-primary text-primary-foreground py-2.5 px-4 rounded-lg text-sm font-semibold transition-all hover:-translate-y-0.5"
                         data-hover
                       >
-                        <ArrowUpRight className="w-4 h-4" /> Live Site
+                        Live Demo
                       </a>
                     )}
                     {project.github && (
@@ -136,10 +136,10 @@ export const Projects = () => {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-xs font-mono font-bold tracking-widest uppercase text-ink hover:text-primary transition-colors"
+                        className="flex-1 flex items-center justify-center border border-primary text-primary py-2.5 px-4 rounded-lg text-sm font-semibold transition-all hover:bg-primary/5 hover:-translate-y-0.5"
                         data-hover
                       >
-                        <Github className="w-4 h-4" /> Source Code
+                        Source Code
                       </a>
                     )}
                   </div>

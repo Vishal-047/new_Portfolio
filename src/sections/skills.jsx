@@ -1,95 +1,139 @@
+import { useState } from "react";
 import { StaggerReveal } from "@/components/StaggerReveal";
 
-const skillCategories = [
-  {
-    icon: "⌨️",
-    title: "Coding Skills",
-    skills: ["C++", "Python", "DSA", "OOPs", "DBMS", "SQL"]
-  },
-  {
-    icon: "🌐",
-    title: "Full Stack Dev",
-    skills: ["HTML", "CSS", "JavaScript", "React.js", "Next.js", "Tailwind CSS", "Bootstrap", "Node.js", "Express.js", "REST APIs", "JWT Auth"]
-  },
-  {
-    icon: "🗄️",
-    title: "Databases",
-    skills: ["MySQL", "SQLite", "MongoDB", "Mongoose"]
-  },
-  {
-    icon: "🛠️",
-    title: "Tools & Platforms",
-    skills: ["Git", "GitHub", "Docker", "Firebase", "Vercel"]
-  },
-  {
-    icon: "🛡️",
-    title: "Cybersecurity",
-    skills: ["Wireshark", "Burp Suite", "Nmap", "Metasploit", "Cisco Packet Tracer", "SETOOLKIT"]
-  },
-  {
-    icon: "💡",
-    title: "Soft Skills",
-    skills: ["Problem-Solving", "Team Collaboration", "Adaptability", "Algorithmic Thinking"]
-  }
+const skillsData = [
+    // Programming
+    { name: "C++", percentage: 80, category: "ProgrammingLanguages", abbr: "C++" },
+    { name: "Python", percentage: 75, category: "ProgrammingLanguages", abbr: "Py" },
+    { name: "Java", percentage: 70, category: "ProgrammingLanguages", abbr: "Ja" },
+    { name: "C", percentage: 70, category: "ProgrammingLanguages", abbr: "C" },
+    
+    // Cybersecurity
+    { name: "Wireshark", percentage: 70, category: "Cybersecurity", abbr: "WS" },
+    { name: "Burp Suite", percentage: 65, category: "Cybersecurity", abbr: "BP" },
+    { name: "Nmap", percentage: 60, category: "Cybersecurity", abbr: "NM" },
+    { name: "Metasploit", percentage: 65, category: "Cybersecurity", abbr: "MS" },
+    { name: "Packet Tracer", percentage: 85, category: "Cybersecurity", abbr: "PT" },
+    { name: "SETOOLKIT", percentage: 65, category: "Cybersecurity", abbr: "SE" },
+
+    // Frontend
+    { name: "React.js", percentage: 80, category: "Frontend", abbr: "Re" },
+    { name: "HTML", percentage: 95, category: "Frontend", abbr: "HT" },
+    { name: "JavaScript", percentage: 80, category: "Frontend", abbr: "JS" },
+    { name: "Tailwind CSS", percentage: 80, category: "Frontend", abbr: "TW" },
+    { name: "CSS", percentage: 85, category: "Frontend", abbr: "CS" },
+    { name: "Bootstrap", percentage: 80, category: "Frontend", abbr: "BS" },
+
+    // Backend
+    { name: "Node.js", percentage: 75, category: "Backend", abbr: "No" },
+    { name: "Express.js", percentage: 70, category: "Backend", abbr: "Ex" },
+    { name: "REST APIs", percentage: 68, category: "Backend", abbr: "API" },
+    { name: "JWT Auth", percentage: 75, category: "Backend", abbr: "JWT" },
+
+    // Databases
+    { name: "MongoDB", percentage: 80, category: "Databases", abbr: "MDB" },
+    { name: "Mongoose", percentage: 80, category: "Databases", abbr: "MG" },
+
+    // Tools
+    { name: "Git", percentage: 85, category: "Tools", abbr: "Git" },
+    { name: "GitHub", percentage: 85, category: "Tools", abbr: "GH" },
+    { name: "Firebase", percentage: 60, category: "Tools", abbr: "FB" },
+    { name: "Vercel", percentage: 85, category: "Tools", abbr: "Ver" },
 ];
 
+const categories = ["ProgrammingLanguages", "Frontend", "Backend", "Databases", "Tools", "Cybersecurity"];
+
 export const Skills = () => {
-  return (
-    <section id="skills" className="py-28 relative overflow-hidden">
-      <span className="watermark -top-8 left-4 md:left-12">03</span>
+    const [activeTab, setActiveTab] = useState("ProgrammingLanguages");
 
-      <div className="container mx-auto px-6 max-w-6xl relative z-10">
-        <StaggerReveal className="space-y-14">
+    const filteredSkills =
+        activeTab === "All Skills"
+            ? skillsData
+            : skillsData.filter((s) => s.category === activeTab);
 
-          {/* Section header — same pattern as About / Hero */}
-          <div className="flex items-end gap-8">
-            <div className="shrink-0">
-              <span className="section-label mb-3 block">Skills & Expertise</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-ink leading-tight">
-                Technical <span className="font-serif italic font-normal text-rust">arsenal.</span>
-              </h2>
+    return (
+        <section id="skills" className="py-28 relative overflow-hidden bg-background">
+            <span className="watermark -top-8 left-4 md:left-12">03</span>
+
+            <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-6xl">
+                <StaggerReveal className="flex flex-col items-center">
+
+                    {/* Header */}
+                    <div className="text-center mb-10 w-full relative z-10">
+                        <h2 className="text-4xl md:text-5xl font-bold text-ink mb-6 font-serif relative inline-block">
+                            Technical Arsenal
+                            <div className="absolute left-1/2 -bottom-2 w-1/3 h-[3px] bg-gradient-to-r from-transparent via-primary to-transparent -translate-x-1/2" />
+                        </h2>
+                        <p className="text-muted-foreground text-sm">
+                            A showcase of technologies I've mastered on my journey as a developer.
+                        </p>
+                    </div>
+
+                    {/* Filter Pills */}
+                    <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-14 w-full relative z-10">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveTab(cat)}
+                                className={`px-4 md:px-5 py-2 rounded-full text-[0.7rem] md:text-xs font-mono tracking-wider transition-all duration-300 ${activeTab === cat
+                                        ? "bg-primary text-primary-foreground font-bold shadow-[0px_4px_12px_rgba(200,134,10,0.3)]"
+                                        : "bg-card border border-border text-muted-foreground hover:border-primary/50 hover:text-ink"
+                                    }`}
+                                data-hover
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Card Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-full relative z-10">
+                        {filteredSkills.map((skill, idx) => (
+                            <div
+                                key={`${activeTab}-${idx}`}
+                                className="bg-card border border-border p-5 rounded-2xl flex flex-col transition-all duration-300 hover:border-primary/40 hover:-translate-y-1 hover:shadow-[4px_4px_0px_rgba(200,134,10,0.15)] animate-fade-in"
+                                style={{ animationDelay: `${(idx % 12) * 50}ms` }}
+                            >
+                                {/* Top Row: Icon, Name, % */}
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center gap-3">
+                                        {/* Icon Box */}
+                                        <div
+                                            className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-primary text-xs shrink-0 bg-primary/10 border border-primary/20"
+                                        >
+                                            {skill.abbr}
+                                        </div>
+                                        {/* Name */}
+                                        <h3 className="font-bold text-ink font-sans text-base">
+                                            {skill.name}
+                                        </h3>
+                                    </div>
+                                    {/* Percentage */}
+                                    <span className="text-muted-foreground text-xs font-mono font-medium">
+                                        {skill.percentage}%
+                                    </span>
+                                </div>
+
+                                {/* Progress Bar */}
+                                <div className="w-full bg-border/50 h-1.5 rounded-full mb-3 overflow-hidden relative">
+                                    <div
+                                        className="absolute top-0 left-0 h-full rounded-full transition-all duration-1000 ease-out bg-primary"
+                                        style={{ width: `${skill.percentage}%` }}
+                                    />
+                                </div>
+
+                                {/* Bottom Row: Category */}
+                                <div className="text-right mt-auto">
+                                    <span className="text-[0.6rem] text-muted-foreground uppercase tracking-widest font-mono">
+                                        {skill.category}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                </StaggerReveal>
             </div>
-            <div className="flex-1 hidden md:block border-b border-border mb-2" />
-            <p className="hidden lg:block text-sm text-muted-foreground font-mono max-w-xs mb-2 text-right">
-              Tools &amp; technologies I use to bring ideas to life.
-            </p>
-          </div>
-
-          {/* Card grid — 3D via offset border layer (same trick as Hero floating badge) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {skillCategories.map((category, idx) => (
-              <div key={idx} className="relative group">
-                {/* Depth layer — the "3D" offset, uses border-border to stay on-theme */}
-                <div className="absolute inset-0 translate-x-[5px] translate-y-[5px] border border-border bg-card transition-transform duration-300 group-hover:translate-x-[8px] group-hover:translate-y-[8px]" />
-
-                {/* Foreground card — lifts toward viewer on hover */}
-                <div className="relative bg-background border border-primary/30 p-6 flex flex-col gap-5 transition-transform duration-300 group-hover:-translate-x-[3px] group-hover:-translate-y-[3px]">
-                  {/* Header */}
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-mono text-xs font-bold text-ink uppercase tracking-widest">
-                      {category.title}
-                    </h3>
-                    <span className="text-base">{category.icon}</span>
-                  </div>
-
-                  {/* Thin amber rule */}
-                  <div className="w-8 h-px bg-primary" />
-
-                  {/* Skill tags — reuse native .filter-tag */}
-                  <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill, sIdx) => (
-                      <span key={sIdx} className="filter-tag">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </StaggerReveal>
-      </div>
-    </section>
-  );
-};
+        </section>
+    );
+};

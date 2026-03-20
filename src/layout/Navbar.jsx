@@ -50,10 +50,10 @@ export const Navbar = ({ onContactClick }) => {
       <nav className="container mx-auto px-6 flex items-center justify-between">
         <a
           href="#"
-          className="font-serif text-xl tracking-tight text-ink hover:text-primary transition-colors"
+          className="font-serif text-3xl tracking-tight text-ink hover:text-primary transition-colors"
           data-hover
         >
-          Vishal Singh<span className="text-primary">.</span>
+          Vishal Singh
         </a>
 
         {/* Desktop Nav */}
